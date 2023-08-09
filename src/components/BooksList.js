@@ -14,6 +14,7 @@ const AddBooks = (props) => {
     //sepete eklenen ürün sayısı
     const [count, setCount] = useState(0);
 
+
     //toplam fiyatı hesaplar
     const totalPrice = addedBooks.reduce((total, book) => total + book.price, 0);
     //total: işlem sırasında günvellenen değer
@@ -22,8 +23,17 @@ const AddBooks = (props) => {
 
     const addBookHandler = (event, book) => {
         event.preventDefault();
+
+
+        //eklediğimiz kitapların idlerinin farklı olması için
+        const newBook = {
+            ...book,
+            id: new Date().getTime()
+        };
+
+
         //kitap listesine yeni kitap ekle
-        setAddedBooks((prevBooks) => [...prevBooks, book]);
+        setAddedBooks((prevBooks) => [...prevBooks, newBook]);
 
         //sepetteki sayıyı arttır
         setCount(count + 1);
@@ -52,7 +62,7 @@ const AddBooks = (props) => {
                             <h2> {item.title}</h2>
                             <h5>{item.author}</h5>
                             <span className={classes.price}>${item.price}</span>
-                            <button onClick={(event) => addBookHandler(event, item)} className={classes.btn}>Sepete ekle</button>
+                            <button onClick={(event) => addBookHandler(event, item)} className={classes.btn}>Add</button>
                         </div>
                     ))
                 }
@@ -60,10 +70,13 @@ const AddBooks = (props) => {
             </div>
 
 
+
+            {/* alışveriş sepeti kısmı */}
+            {/* sepet iconuna tıklanınca gelir */}
             {clickIcon && (addedBooks.length === 0 ?
                 <div className={classes.modal}>
                     <div className={classes.modalContent}>
-                        <h2>Sepet şu anda boş</h2>
+                        <h2>Cart is currently empty</h2>
                         <button className={classes.delete} onClick={closeModalHandler}>Exit</button>
                     </div>
                 </div>
@@ -71,7 +84,7 @@ const AddBooks = (props) => {
                     <div className={classes.modal}>
                         <div className={classes.modalContent}>
                             <ShoppingList decreaseCount={() => setCount(count - 1)} setAddedBooks={setAddedBooks} addedBooks={addedBooks} />
-                            <h2>Toplam Ödenecek Tutar: ${totalPrice}</h2>
+                            <h2>You will pay: ${totalPrice}</h2>
                             <button className={classes.delete} onClick={closeModalHandler}>Exit</button>
 
                         </div>

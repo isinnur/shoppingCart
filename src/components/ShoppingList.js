@@ -8,7 +8,7 @@ const ShoppingList = (props) => {
 
 
     const deleteBookHandler = (bookId) => {
-        const updatedBooks = props.addedBooks.filter((book) => book.id != bookId)
+        const updatedBooks = props.addedBooks.filter((book) => book.id !== bookId)
         props.setAddedBooks(updatedBooks);
         setIsClicked(true);
         props.decreaseCount();
