@@ -12,30 +12,39 @@
 }
 
 .books {
+  padding: 30px;
   width: 300px;
   margin-right: 30px;
   margin-bottom: 50px;
   position: relative;
+  border: 1px solid gray;
+  border-radius: 12px;
 }
 
 .btn {
   border: none;
   outline: none;
-  padding: 5px;
+  padding: 8px;
   background-color: brown;
   color: #fff;
   border-radius: 12px;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 20px;
+  bottom: 10px;
   cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+
+.btn:hover {
+  background: rgb(112, 27, 27);
 }
 
 .price {
+  font-size: 20px;
   color: midnightblue;
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 10px;
+  left: 30px;
 }
 
 .modal {
@@ -54,7 +63,7 @@
   min-width: 500px;
   background-color: white;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,7 +81,31 @@
 }
 
 .icon {
-  font-size: 32px;
+  font-size: 50px;
   cursor: pointer;
   margin: 10px;
+}
+
+.icon:hover {
+  color: brown;
+}
+
+.count {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 200;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 42px;
+  color: #fff;
+  background-color: brown;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.navbar {
+  display: flex;
 }

@@ -85,7 +85,9 @@ function App() {
     },
   ]
 
+  //kitapların listesi
   const [bookList, setBookList] = useState(list);
+
   return (
     <>
       <BooksList books={bookList} />

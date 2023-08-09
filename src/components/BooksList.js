@@ -7,25 +7,43 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 const AddBooks = (props) => {
     //sepete eklenen kitapların listesi
     const [addedBooks, setAddedBooks] = useState([]);
-    const [lookCart, setLookCard] = useState(false);
+
+    //alışveriş sepeti iconu
+    const [clickIcon, setClickIcon] = useState(false);
+
+    //sepete eklenen ürün sayısı
+    const [count, setCount] = useState(0);
+
+    //toplam fiyatı hesaplar
+    const totalPrice = addedBooks.reduce((total, book) => total + book.price, 0);
+    //total: işlem sırasında günvellenen değer
+    //book:işlem yapılan kitap
+    //0 başlangıç değeri
 
     const addBookHandler = (event, book) => {
         event.preventDefault();
         //kitap listesine yeni kitap ekle
         setAddedBooks((prevBooks) => [...prevBooks, book]);
+
+        //sepetteki sayıyı arttır
+        setCount(count + 1);
     }
 
+
     const showShoppingCartHandler = () => {
-        setLookCard(true);
+        setClickIcon(true);
     }
 
     const closeModalHandler = () => {
-        setLookCard(false);
+        setClickIcon(false);
     }
 
     return (
         <>
-            <AiOutlineShoppingCart onClick={showShoppingCartHandler} className={classes.icon} />
+            <div className={classes.navbar}>
+                <AiOutlineShoppingCart onClick={showShoppingCartHandler} className={classes.icon} />
+                <span className={classes.count}>{count}</span>
+            </div>
             <div className={classes.container}  >
                 {
                     props.books.map((item) => (
@@ -40,7 +58,9 @@ const AddBooks = (props) => {
                 }
 
             </div>
-            {lookCart && (addedBooks.length === 0 ?
+
+
+            {clickIcon && (addedBooks.length === 0 ?
                 <div className={classes.modal}>
                     <div className={classes.modalContent}>
                         <h2>Sepet şu anda boş</h2>
@@ -50,8 +70,10 @@ const AddBooks = (props) => {
                 : (
                     <div className={classes.modal}>
                         <div className={classes.modalContent}>
-                            <ShoppingList setAddedBooks={setAddedBooks} addedBooks={addedBooks} />
+                            <ShoppingList decreaseCount={() => setCount(count - 1)} setAddedBooks={setAddedBooks} addedBooks={addedBooks} />
+                            <h2>Toplam Ödenecek Tutar: ${totalPrice}</h2>
                             <button className={classes.delete} onClick={closeModalHandler}>Exit</button>
+
                         </div>
                     </div>
                 ))}

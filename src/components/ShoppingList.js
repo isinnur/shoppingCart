@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from './ShoppingList.module.css'
 
 const ShoppingList = (props) => {
+
+    const [isClicked, setIsClicked] = useState(false);
+
 
 
     const deleteBookHandler = (bookId) => {
         const updatedBooks = props.addedBooks.filter((book) => book.id != bookId)
         props.setAddedBooks(updatedBooks);
+        setIsClicked(true);
+        props.decreaseCount();
     }
 
 
@@ -22,6 +27,7 @@ const ShoppingList = (props) => {
                             <span>${book.price}</span>
                             <button onClick={() => deleteBookHandler(book.id)} className={classes.delete}>Delete</button>
                         </div>
+
                     </li>
                 ))}
 
